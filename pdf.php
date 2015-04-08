@@ -46,12 +46,15 @@ $genderColors = array(
 	---------------------------------------------------------------------------
 */
 
+$_POST['org'] = 'NCGV';
+$_POST['desc'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut gravida libero. Nullam auctor molestie lacinia. Vivamus placerat ornare tellus. Fusce vel commodo justo. Nunc mollis, ante vel suscipit semper, eros purus tristique nisi, non tristique orci ipsum bibendum nisl. Sed sit amet accumsan mi, nec sodales neque. Aliquam et finibus ipsum.';
+
 // create new PDF document
 $pdf = new BLUEPRINT(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // Set title
 $today = date("F j, Y");  
-$pdfTitle = "<h2 class='uppercase'>" . $_POST['org'] . " MEMBERSHIP REPORT!xx</h2>";
+$pdfTitle = "<h2 class='uppercase'>" . $_POST['org'] . " MEMBERSHIP REPORT!</h2>";
 
 // set document information
 $pdf->SetCreator('Richir Outreach');
@@ -88,7 +91,8 @@ $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 */
 
 // Load the CSV
-$data = read_csv( $_FILES['csv']['tmp_name'] );
+//$data = read_csv( $_FILES['csv']['tmp_name'] );
+$data = read_csv( 'blueprint_data.tsv' );
 
 //pre_print_r($data);
 
