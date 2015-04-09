@@ -31,6 +31,12 @@
 					<input type="file" name="csv" id="csv">
 				</div>
 
+
+				<div>
+					<label for="preview">Preview in Browser:</label>
+					<input type="checkbox" name="preview" id="preview">
+				</div>	
+
 				<input type="submit" value="Generate PDF" name="submit">			
 			</form>	
 		</div>
