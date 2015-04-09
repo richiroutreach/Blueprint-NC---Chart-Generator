@@ -21,12 +21,12 @@ $colors = generateColors();
 //$_POST['org'] = 'NCGV';
 //$_POST['desc'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut gravida libero. Nullam auctor molestie lacinia. Vivamus placerat ornare tellus. Fusce vel commodo justo. Nunc mollis, ante vel suscipit semper, eros purus tristique nisi, non tristique orci ipsum bibendum nisl. Sed sit amet accumsan mi, nec sodales neque. Aliquam et finibus ipsum.';
 
-$countyText = "The county that had the most voters vote is Mecklenburg with 677,706. The second highest county with voters voting would be Wake county at 669,302.";
-$genderText = "Women make up 54% of registered North Carolina voters and 44% of registered women voted in 2014.";
-$ideologyText = "The ideology model predicts the likelihood that an individual hosts progressive beliefs. A lower score indicates someone is more likely conservative, and higher score score indicates someone is more likely progressive.";
-$ageText = "Almost 19% of North Carolina voters are 18-29 years old and yet only 12% voters in 2014 were under 30.";
-$raceText = "71.89% of North Carolina voters are identified as white, 23.55% Black, and 2.26% Hispanic.";
-$propensityText = "In 2014 44.4% of registered voters turned out to vote in the general election.";
+$countyText = "";
+$genderText = "Statewide: Women make up 54% of North Carolina voters";
+$ideologyText = "A lower score indicates someone is more likely conservative and a higher score indicates someone is more likely progressive.";
+$ageText = "Statewide: Almost 19% of North Carolina voters are 18-29 years old.";
+$raceText = "Statewide: 71.89% of North Carolina voters are identified as white, 23.55% Black, and 2.26% Hispanic.";
+$propensityText = "A lower score indicates someone is less likely to vote in the current year election, the higher the score the more likely to vote.";
 
 
 
@@ -186,6 +186,18 @@ class BLUEPRINT extends TCPDF {
 		// Set the subheader
 //		$this->Cell(0, 0, 'Count of the total records: ' , 0, false, 'L', 0, '', 0, false, 'L', 'T');
 	}
+
+	// Page footer
+    public function Footer() {
+        // Position at 15 mm from bottom
+        $this->SetY(-15);
+
+        // Set font
+        $this->SetFont('helvetica', 'I', 8);
+
+        // Page number
+        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    }
 }
 
 /*
@@ -201,7 +213,7 @@ $pdf = new BLUEPRINT(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF
 $today = date("F j, Y");  
 
 // Set title
-$pdfTitle = $_POST['org'] . " MEMBERSHIP REPORT";
+$pdfTitle = mb_strtoupper($_POST['org']) . " MEMBERSHIP REPORT";
 
 // set document information
 $pdf->SetCreator('Richir Outreach');
