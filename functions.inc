@@ -3,7 +3,7 @@
 /*
 
 */
-function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius, $array, $colors, $legend = false) {
+function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius, $array, $colors, $legend = "none") {
 	// Set Title Color
 	$pdf->SetTextColor( 0, 0, 0 );
 	
@@ -14,7 +14,7 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 	$pdf->SetXY( $xpos, $ypos);
 
 	// Graph layout changes slightly if we have a legend
-	if( $legend ) {
+	if( $legend == "right" ) {
 		// Add the text and center the title
 		$pdf->Cell( $barWidth / 2, 0, $title, 0, 0, 'C');
 
@@ -27,7 +27,7 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 	}
 
 	// Offset for legend
-	$yOffset = $ypos + ( $radius / 2 );
+	$yOffset = 0;
 
 	// Set the X,Y center and radius of our pie chart
 	$ypos = $ypos + ( $radius / 1.5 );
@@ -37,9 +37,29 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 	
 	// Set font
 	$pdf->SetFont('helvetica', 'I', 8);
+
+	if( $legend == "top" ) {
+		$numItems = count( $array );
+
+		if( $numItems > 7) {
+			$numItems = 7;
+		}
+
+		//echo $numItems . '<br>';
+
+		$yChartOffset = $numItems * 5.75;
+
+	} else {
+		$yChartOffset = 0;
+	}
+
+
+//	echo '<hr>';
+//	echo $yChartOffset . ' - ' . $numItems . '<br>';
+
 	
 	// Change the current X & Y to where we are putting the chart
-	$pdf->SetXY( $xpos - 7.5, $ypos + ( $radius * 2 ) + 7.5 );
+	$pdf->SetXY( $xpos - 7.5, $ypos + ( $radius * 2 ) + 7.5 + $yChartOffset );
 
 	// Add the description text
 	$pdf->MultiCell( $barWidth, 0, $description, 0, '' );
@@ -54,6 +74,9 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 	// Counter for colors array
 	$counter = 0;
 
+	// Set up our legend offsets
+	$legendX = $legendY = 0;
+
 	// Go through array
 	foreach( $array as $key => $row ) {
 		// Calculate how big of an arc this element is
@@ -66,26 +89,40 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 
 		// Set our fill color
 		$pdf->SetFillColor( $red, $green, $blue );
-
+		
 		// If this is the last thing in the array, then it must go to the last part of the array
 		if( $key == $arrayEnd ) {
-			$pdf->PieSector($xpos + $radius, $ypos + $radius, $radius, $angle, 360, 'F', false, 0, 2);
+			$pdf->PieSector($xpos + $radius, $yChartOffset + $ypos + $radius, $radius, $angle, 360, 'F', false, 0, 2);
 		} else {
-			$pdf->PieSector($xpos + $radius, $ypos + $radius, $radius, $angle, $angle + $newAngle, 'F', false, 0, 2);
+			$pdf->PieSector($xpos + $radius, $yChartOffset + $ypos + $radius, $radius, $angle, $angle + $newAngle, 'F', false, 0, 2);
 		}
 
 		// Set our new starting point
 		$angle += $newAngle;
 
-		if( $legend ) {
+		if( $legend != "none" && $counter < 7 ) {
 			// Set the text color
-			$pdf->SetTextColor( $red, $green, $blue );			
+			$pdf->SetTextColor( 0, 0, 0 );			
+
+			// Set our border style (width = 0 to remove border)
+			$style = array('width' => 0.5, 'color' => adjustColorLightenDarken( array( 'r' => $red, 'g' => $green, 'b' => $blue ), 10 ) );
+
+			if( $legend == "top" ) {
+				$legendX = $xpos;
+				$legendY = $ypos + $yOffset;
+			} else if ( $legend == "right" ) {
+				$legendX = $xpos + ($barWidth / 2);
+				$legendY = $yOffset + $ypos + ( $radius / 2 ) - 5;
+			}
+
+			// Draw our box
+			$pdf->rect( $legendX + 5, $legendY, 3, 3, 'DF', array( 'all' => $style ),  array( $red, $green, $blue ) );		
 
 			// Write Labels
-			$pdf->Text( $xpos + ($barWidth / 2) + 5, $yOffset, $key . ' (' . intval( 100 * getPercent( $key, $array) ) . '%)' );
+			$pdf->Text( $legendX + 9, $legendY, $key . ' (' . intval( 100 * getPercent( $key, $array) ) . '%)' );
 
 			// Update our label offset
-			$yOffset += 5;
+			$yOffset += 5.5;
 		}
 
 		// Incriment our counter for colors
@@ -93,7 +130,7 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 	}
 }
 
-function barChart( $pdf, $title, $description, $xpos, $ypos, $barWidth, $height, $array, $maxBars, $colors = null, $legender = false ) {
+function barChart( $pdf, $title, $description, $xpos, $ypos, $barWidth, $height, $array, $maxBars, $colors = null, $legend = -1 ) {
 	// Set color
 	$pdf->SetTextColor( 0, 0, 0 );
 
@@ -118,7 +155,7 @@ function barChart( $pdf, $title, $description, $xpos, $ypos, $barWidth, $height,
 
 	// Set an offset so our bars grow to the right
 	$xOffset = $xpos;
-	$yOffset = $ypos;
+	$yOffset = $ypos + 15;
 	$ypos += 13;
 	$counter = 0;
 
@@ -143,6 +180,23 @@ function barChart( $pdf, $title, $description, $xpos, $ypos, $barWidth, $height,
 			$xOffset += $barWidth + 0.5;
 		}
 	
+		if( $legend != -1 && $counter < $legend ) {
+			// Set the text color
+			$pdf->SetTextColor( 0, 0, 0 );			
+
+			// Set our border style (width = 0 to remove border)
+			$style = array('width' => 0.5, 'color' => adjustColorLightenDarken( array( 'r' => $red, 'g' => $green, 'b' => $blue ), 10 ) );
+
+			// Draw our box
+			$pdf->rect( 150, $yOffset, 3, 3, 'DF', array( 'all' => $style ),  array( $red, $green, $blue ) );		
+
+			// Write Labels
+			$pdf->Text( 154, $yOffset, $key . ' (' . intval( 100 * getPercent( $key, $array) ) . '%)' );
+
+			// Update our label offset
+			$yOffset += 5.5;
+		}
+
 		$counter++;
 	}
 }

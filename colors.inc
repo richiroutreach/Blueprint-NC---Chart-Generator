@@ -3,6 +3,24 @@
 function generateColors() {
 	$colors = array();
 
+	$colors[] = array( 0 => 226, 1 => 207, 2 => 86);
+	$colors[] = array( 0 => 86, 1 => 104, 2 => 226);
+
+	$colors[] = array( 0 => 174, 1 => 226, 2 => 86);
+	$colors[] = array( 0 => 138, 1 => 86, 2 => 226);
+	
+	$colors[] = array( 0 => 104, 1 => 226, 2 => 86);
+	$colors[] = array( 0 => 207, 1 => 86, 2 => 226);
+	
+	$colors[] = array( 0 => 86, 1 => 226, 2 => 137);
+	$colors[] = array( 0 => 226, 1 => 86, 2 => 174);
+	
+	$colors[] = array( 0 => 86, 1 => 226, 2 => 207);
+	$colors[] = array( 0 => 226, 1 => 86, 2 => 104);
+	
+	$colors[] = array( 0 => 86, 1 => 174, 2 => 226);
+	$colors[] = array( 0 => 226, 1 => 137, 2 => 86);
+
 	$colors[] = array( 0 => 145, 1 => 0, 2 => 0 );
 	$colors[] = array( 0 => 0, 1 => 87, 2 => 87 );
 	$colors[] = array( 0 => 145, 1 => 66, 2 => 0 );

@@ -150,7 +150,7 @@ for($i = 1; $i < count($data) - 1; $i++) {
 
 // Sort ascending to fix issues with empty 
 arsort( $gender );
-asort( $race );
+arsort( $race );
 arsort( $age );
 arsort( $county );
 
@@ -170,9 +170,9 @@ class BLUEPRINT extends TCPDF {
 
 		// Set font
 		$this->SetFont('helvetica', 'B', 16);
-		
+	
 		// Title
-		$this->Cell(0, 0, . mb_strtoupper($_POST['org']) . " MEMBERSHIP REPORT", 0, false, 'L', 0, '', 0, false, 'L', 'T');
+		$this->writeHTMLCell(0, 0, -52.5, 6, '<font color="#366699">' . strtoupper($_POST['org']) . "</font> MEMBERSHIP REPORT", 0, 0, 0, false, true, 'L', true);
 
 		// Set image
 		$this->Image($image_file, 0, 5, 0, '', 'PNG', '', 'T', false, 300, 'R', false, false, 0, false, false, false);
@@ -181,7 +181,7 @@ class BLUEPRINT extends TCPDF {
 //		$this->ln(12);
 
 		// Set font
-		$this->SetFont('helvetica', 'N', 10);
+//		$this->SetFont('helvetica', 'N', 10);
 
 		// Set the subheader
 //		$this->Cell(0, 0, 'Count of the total records: ' , 0, false, 'L', 0, '', 0, false, 'L', 'T');
@@ -196,7 +196,7 @@ class BLUEPRINT extends TCPDF {
         $this->SetFont('helvetica', 'I', 8);
 
         // Page number
-        $this->Cell(0, 10, 'Page '. $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        //$this->Cell(0, 10, 'Page '. $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 }
 
@@ -213,7 +213,8 @@ $pdf = new BLUEPRINT(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF
 $today = date("F j, Y");  
 
 // Set title
-$pdfTitle = mb_strtoupper($_POST['org']) . " MEMBERSHIP REPORT";
+$pdfTitle = '<font color=red>' . strtoupper($_POST['org']) . "</font> MEMBERSHIP REPORT";
+
 
 // set document information
 $pdf->SetCreator('Richir Outreach');
@@ -276,31 +277,31 @@ $pageWidth = floor( $pdf->getPageWidth() - PDF_MARGIN_LEFT - PDF_MARGIN_RIGHT);
 leftMarginBorder( $pdf, array( 54, 102, 153 ) );
 
 // Gender Pie Chart
-pieChart( $pdf, "By Gender", $genderText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $gender, $colors );
+pieChart( $pdf, "By Gender", $genderText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $gender, $colors, "top" );
 
 // Divider to the right of the gender char
-chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) - ( GRAPH_MARGIN / 2 ), GRAPH_POSITION_Y + 5, 60, array( 54, 102, 153 ) );
+chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) - ( GRAPH_MARGIN / 2 ), GRAPH_POSITION_Y + 5, 105, array( 54, 102, 153 ) );
 
 // Race chart
-pieChart( $pdf, "By Race", $raceText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $race, $colors );
+pieChart( $pdf, "By Race", $raceText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $race, $colors, "top" );
 
 // Race divider
-chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) +  ($pageWidth / 3), GRAPH_POSITION_Y + 5, 60, array( 54, 102, 153 ) );
+chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) +  ($pageWidth / 3), GRAPH_POSITION_Y + 5, 105, array( 54, 102, 153 ) );
 
 // Age chart
-pieChart( $pdf, "By Age", $ageText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + ( ($pageWidth / 3) * 2) + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $age, $colors );
+pieChart( $pdf, "By Age", $ageText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + ( ($pageWidth / 3) * 2) + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $age, $colors, "top" );
 
 // Ideology pie chart
-pieChart( $pdf, "By Ideology Score", $ideologyText, ($pageWidth / 2) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + GRAPH_MARGIN, GRAPH_POSITION_Y + 85, 20, $ideal, $colors, true );
+pieChart( $pdf, "By Ideology Score", $ideologyText, ($pageWidth / 2) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + GRAPH_MARGIN, GRAPH_POSITION_Y + 120, 20, $ideal, $colors, "right" );
 
 // Race divider
-chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 90, 60, array( 54, 102, 153 ) );
+chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 125, 60, array( 54, 102, 153 ) );
 
 // Vote Propensity
-pieChart( $pdf, "By Vote Propensity", $propensityText, ( $pageWidth / 2 ) - ( 2 * GRAPH_MARGIN ), PDF_MARGIN_LEFT + ( GRAPH_MARGIN * 2 ) + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 85, 20, $propensity, $colors, true );
+pieChart( $pdf, "By Vote Propensity", $propensityText, ( $pageWidth / 2 ) - ( 2 * GRAPH_MARGIN ), PDF_MARGIN_LEFT + ( GRAPH_MARGIN * 2 ) + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 120, 20, $propensity, $colors, "right" );
 
 // County
-barChart( $pdf, 'By County', $countyText, PDF_MARGIN_LEFT, 215, 10, 32.5, $county, 17, $colors );
+barChart( $pdf, 'By County', $countyText, PDF_MARGIN_LEFT, 245, 10, 32.5, $county, 12, $colors, 5 );
 
 /*
 	---------------------------------------------------------------------------
