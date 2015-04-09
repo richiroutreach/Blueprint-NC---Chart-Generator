@@ -172,7 +172,7 @@ class BLUEPRINT extends TCPDF {
 		$this->SetFont('helvetica', 'B', 16);
 		
 		// Title
-		$this->Cell(0, 0, $_POST['org'] . " MEMBERSHIP REPORT", 0, false, 'L', 0, '', 0, false, 'L', 'T');
+		$this->Cell(0, 0, . mb_strtoupper($_POST['org']) . " MEMBERSHIP REPORT", 0, false, 'L', 0, '', 0, false, 'L', 'T');
 
 		// Set image
 		$this->Image($image_file, 0, 5, 0, '', 'PNG', '', 'T', false, 300, 'R', false, false, 0, false, false, false);
@@ -196,7 +196,7 @@ class BLUEPRINT extends TCPDF {
         $this->SetFont('helvetica', 'I', 8);
 
         // Page number
-        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Page '. $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 }
 
