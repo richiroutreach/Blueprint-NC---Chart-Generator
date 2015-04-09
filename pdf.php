@@ -269,17 +269,17 @@ pieChart( $pdf, "By Gender", $genderText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, P
 // Divider to the right of the gender char
 chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) - ( GRAPH_MARGIN / 2 ), GRAPH_POSITION_Y + 5, 60, array( 54, 102, 153 ) );
 
-// Ideology poie chart
-pieChart( $pdf, "By Ideology Score", $ideologyText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $ideal, $colors );
+// Race chart
+pieChart( $pdf, "By Race", $raceText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $race, $colors );
 
-// Ideology divider
+// Race divider
 chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) +  ($pageWidth / 3), GRAPH_POSITION_Y + 5, 60, array( 54, 102, 153 ) );
 
 // Age chart
 pieChart( $pdf, "By Age", $ageText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + ( ($pageWidth / 3) * 2) + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $age, $colors );
 
-// Race chart
-pieChart( $pdf, "By Race", $raceText, ($pageWidth / 2) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + GRAPH_MARGIN, GRAPH_POSITION_Y + 85, 20, $race, $colors, true );
+// Ideology pie chart
+pieChart( $pdf, "By Ideology Score", $ideologyText, ($pageWidth / 2) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + GRAPH_MARGIN, GRAPH_POSITION_Y + 85, 20, $ideal, $colors, true );
 
 // Race divider
 chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 90, 60, array( 54, 102, 153 ) );

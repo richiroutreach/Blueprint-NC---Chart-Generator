@@ -181,8 +181,8 @@ function pre_print_r($array) {
 }
 
 function leftMarginBorder( $pdf, $color ) {
-	$pdf->Line( ( PDF_MARGIN_LEFT / 4 ), 0, ( PDF_MARGIN_LEFT / 2 ), $pdf->getPageHeight(), array('width' => 1.5, 'color' => $color ) );
-	$pdf->Line( ( PDF_MARGIN_LEFT / 4 ) + 2, 0, ( PDF_MARGIN_LEFT / 2 ) + 2, $pdf->getPageHeight(), array('width' => 1, 'color' => $color ) );
+	$pdf->Line( ( PDF_MARGIN_LEFT / 4 ), 0, ( PDF_MARGIN_LEFT / 4 ), $pdf->getPageHeight(), array('width' => 1.5, 'color' => $color ) );
+	$pdf->Line( ( PDF_MARGIN_LEFT / 4 ) + 2, 0, ( PDF_MARGIN_LEFT / 4 ) + 2, $pdf->getPageHeight(), array('width' => 1, 'color' => $color ) );
 }
 
 
