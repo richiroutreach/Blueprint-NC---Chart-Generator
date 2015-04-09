@@ -172,7 +172,7 @@ class BLUEPRINT extends TCPDF {
 		$this->SetFont('helvetica', 'B', 16);
 	
 		// Title
-		$this->writeHTMLCell(0, 0, -52.5, 6, '<font color="#366699">' . strtoupper($_POST['org']) . "</font> MEMBERSHIP REPORT", 0, 0, 0, false, true, 'L', true);
+		$this->writeHTMLCell(0, 0, 16, 6, '<font color="#366699">' . strtoupper($_POST['org']) . "</font> MEMBERSHIP REPORT", '', 0, false, true, 'L', true);
 
 		// Set image
 		$this->Image($image_file, 0, 5, 0, '', 'PNG', '', 'T', false, 300, 'R', false, false, 0, false, false, false);
@@ -213,7 +213,7 @@ $pdf = new BLUEPRINT(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF
 $today = date("F j, Y");  
 
 // Set title
-$pdfTitle = '<font color=red>' . strtoupper($_POST['org']) . "</font> MEMBERSHIP REPORT";
+$pdfTitle = strtoupper($_POST['org']) . " MEMBERSHIP REPORT";
 
 
 // set document information
