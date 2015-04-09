@@ -36,10 +36,10 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 	$pdf->SetTextColor( 0, 0, 0 );
 	
 	// Set font
-	$pdf->SetFont('helvetica', 'I', 10);
+	$pdf->SetFont('helvetica', 'I', 8);
 	
 	// Change the current X & Y to where we are putting the chart
-	$pdf->SetXY( $xpos, $ypos + ( $radius * 2 ) + 5 );
+	$pdf->SetXY( $xpos - 7.5, $ypos + ( $radius * 2 ) + 7.5 );
 
 	// Add the description text
 	$pdf->MultiCell( $barWidth, 0, $description, 0, '' );
@@ -107,7 +107,7 @@ function barChart( $pdf, $title, $description, $xpos, $ypos, $barWidth, $height,
 	$pdf->Cell( 0, 0, $title, 0, 0, 'C');
 
 	// Set font
-	$pdf->SetFont('helvetica', 'I', 10);
+	$pdf->SetFont('helvetica', 'I', 8);
 
 	// Change the current X & Y to where we are putting the chart
 	$pdf->SetXY( $xpos, $ypos + $height + 15 );

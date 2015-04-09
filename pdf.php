@@ -21,14 +21,12 @@ $colors = generateColors();
 //$_POST['org'] = 'NCGV';
 //$_POST['desc'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut gravida libero. Nullam auctor molestie lacinia. Vivamus placerat ornare tellus. Fusce vel commodo justo. Nunc mollis, ante vel suscipit semper, eros purus tristique nisi, non tristique orci ipsum bibendum nisl. Sed sit amet accumsan mi, nec sodales neque. Aliquam et finibus ipsum.';
 
-$sampleText = "Women make up 54% of registered North Carolina voters and 44% of registered women voted in 2014.";
-
-$countyText = $sampleText;
-$genderText = $sampleText;
-$ideologyText = $sampleText;
-$ageText = $sampleText;
-$raceText = $sampleText;
-$propensityText = $sampleText;
+$countyText = "The county that had the most voters vote is Mecklenburg with 677,706. The second highest county with voters voting would be Wake county at 669,302.";
+$genderText = "Women make up 54% of registered North Carolina voters and 44% of registered women voted in 2014.";
+$ideologyText = "The ideology model predicts the likelihood that an individual hosts progressive beliefs. A lower score indicates someone is more likely conservative, and higher score score indicates someone is more likely progressive.";
+$ageText = "Almost 19% of North Carolina voters are 18-29 years old and yet only 12% voters in 2014 were under 30.";
+$raceText = "71.89% of North Carolina voters are identified as white, 23.55% Black, and 2.26% Hispanic.";
+$propensityText = "In 2014 44.4% of registered voters turned out to vote in the general election.";
 
 
 
@@ -290,7 +288,7 @@ chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 90,
 pieChart( $pdf, "By Vote Propensity", $propensityText, ( $pageWidth / 2 ) - ( 2 * GRAPH_MARGIN ), PDF_MARGIN_LEFT + ( GRAPH_MARGIN * 2 ) + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 85, 20, $propensity, $colors, true );
 
 // County
-barChart( $pdf, 'By County', $countyText, PDF_MARGIN_LEFT, 215, 10, 37.5, $county, 17, $colors );
+barChart( $pdf, 'By County', $countyText, PDF_MARGIN_LEFT, 215, 10, 32.5, $county, 17, $colors );
 
 /*
 	---------------------------------------------------------------------------

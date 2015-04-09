@@ -7,12 +7,12 @@ function generateColors() {
 	$colors[] = array( 0 => 1, 1 => 53, 2 => 102 );
 	$colors[] = array( 0 => 238, 1 => 169, 2 => 213 );
 	$colors[] = array( 0 => 213, 1 => 238, 2 => 169 );
-	$colors[] = array( 0 => 238, 1 => 229, 2 => 169 );
+	$colors[] = array( 0 => 102, 1 => 1, 2 =>  3);
 
 	$colors[] = array( 0 => 238, 1 => 169, 2 => 179 );
 	$colors[] = array( 0 => 238, 1 => 194, 2 => 169 );
 	$colors[] = array( 0 => 169, 1 => 238, 2 => 194 );
-	$colors[] = array( 0 => 102, 1 => 1, 2 =>  3);
+	$colors[] = array( 0 => 238, 1 => 229, 2 => 169 );
 	$colors[] = array( 0 => 238, 1 => 211, 2 => 169 );
 
 	$colors[] = array( 0 => 169, 1 => 182, 2 => 238 );

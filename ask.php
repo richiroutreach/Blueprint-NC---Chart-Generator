@@ -18,17 +18,17 @@
 			<form action="index.php" method="post" enctype="multipart/form-data">
 				<div>
 					<label for="org">Organization Name:</label>
-					<input type="text" name="org" id="org" />
+					<input type="text" name="org" id="org" required/>
 				</div>
 
 				<div>
 					<label for="desc">Description Text:</label>
-					<textarea rows="10" name="desc" id="desc"></textarea>
+					<textarea rows="10" name="desc" id="desc" required></textarea>
 				</div>
 
 				<div>
 					<label for="csv">Select TSV to upload:</label>
-					<input type="file" name="csv" id="csv">
+					<input type="file" name="csv" id="csv" required>
 				</div>
 
 
