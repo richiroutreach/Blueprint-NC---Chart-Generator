@@ -28,6 +28,7 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 
 	// Offset for legend
 	$yOffset = 0;
+	$xOffset = 0;
 
 	// Set the X,Y center and radius of our pie chart
 	$ypos = $ypos + ( $radius / 1.5 );
@@ -39,25 +40,12 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 	$pdf->SetFont('helvetica', 'I', 8);
 
 	if( $legend == "top" ) {
-		$numItems = count( $array );
-
-		if( $numItems > 7) {
-			$numItems = 7;
-		}
-
-		//echo $numItems . '<br>';
-
-		$yChartOffset = $numItems * 5.75;
+		$yChartOffset = 20;
 
 	} else {
 		$yChartOffset = 0;
 	}
 
-
-//	echo '<hr>';
-//	echo $yChartOffset . ' - ' . $numItems . '<br>';
-
-	
 	// Change the current X & Y to where we are putting the chart
 	$pdf->SetXY( $xpos - 7.5, $ypos + ( $radius * 2 ) + 7.5 + $yChartOffset );
 
@@ -100,7 +88,7 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 		// Set our new starting point
 		$angle += $newAngle;
 
-		if( $legend != "none" && $counter < 7 ) {
+		if( $legend != "none" && $counter < 7 && intval( 100 * getPercent( $key, $array) ) >= 1 ) {
 			// Set the text color
 			$pdf->SetTextColor( 0, 0, 0 );			
 
@@ -108,8 +96,13 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 			$style = array('width' => 0.5, 'color' => adjustColorLightenDarken( array( 'r' => $red, 'g' => $green, 'b' => $blue ), 10 ) );
 
 			if( $legend == "top" ) {
-				$legendX = $xpos;
-				$legendY = $ypos + $yOffset;
+				if( ( ( $counter ) % 2 ) == 0 && $counter > 0 ) {
+					$xOffset = 0;
+				}
+
+				$legendX = $xpos + $xOffset - 6.5;
+				$legendY = $ypos + floor( $counter / 2 ) * 5.5;
+
 			} else if ( $legend == "right" ) {
 				$legendX = $xpos + ($barWidth / 2);
 				$legendY = $yOffset + $ypos + ( $radius / 2 ) - 5;
@@ -123,6 +116,7 @@ function pieChart( $pdf, $title, $description, $barWidth, $xpos, $ypos, $radius,
 
 			// Update our label offset
 			$yOffset += 5.5;
+			$xOffset += 27.5;
 		}
 
 		// Incriment our counter for colors

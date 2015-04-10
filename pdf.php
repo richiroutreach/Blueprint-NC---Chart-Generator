@@ -72,6 +72,13 @@ $ideal['40% - 59%'] = 0;
 $ideal['60% - 79%'] = 0;
 $ideal['> 80%'] = 0;
 
+// Set up Race Array
+$race['White'] = 0;
+$race['Black'] = 0;
+$race['Hispanic'] = 0;
+$race['Asian'] = 0;
+$race['Other'] = 0;
+
 // Loop through our data
 for($i = 1; $i < count($data) - 1; $i++) {
 	// Convert M and F to 'Male' and 'Female'
@@ -90,20 +97,25 @@ for($i = 1; $i < count($data) - 1; $i++) {
 	}
 
 	// Race Chart
-	if(array_key_exists($data[$i][4], $race)) {
-		$race[$data[$i][4]] += 1;
+	if( $data[$i][4] == 'Black') {
+		$race['Black']++;
+	} else if ( $data[$i][4] == 'Caucasian') {
+		$race['White']++;
+	} else if ( $data[$i][4] == 'Hispanic') {
+		$race['Hispanic']++;
+	} else if ( $data[$i][4] == 'Asian') {
+		$race['Asian']++;
 	} else {
-		$race[$data[$i][4]] = 1;
+		$race['Other']++;		
 	}	
-
 
 	// Age Chart
 	if($data[$i][3] < 29) {
-		$tempProp = '18-29';
+		$tempProp = '< 30';
 	} else if ($data[$i][3] < 51) {
-		$tempProp = '30-50';
+		$tempProp = '< 50';
 	} else if ($data[$i][3] < 66) {
-		$tempProp = '51-65';
+		$tempProp = '< 65';
 	} else {
 		$tempProp = '66+';
 	}
@@ -151,7 +163,7 @@ for($i = 1; $i < count($data) - 1; $i++) {
 // Sort ascending to fix issues with empty 
 arsort( $gender );
 arsort( $race );
-arsort( $age );
+//arsort( $age );
 arsort( $county );
 
 /*
@@ -280,28 +292,28 @@ leftMarginBorder( $pdf, array( 54, 102, 153 ) );
 pieChart( $pdf, "By Gender", $genderText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $gender, $colors, "top" );
 
 // Divider to the right of the gender char
-chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) - ( GRAPH_MARGIN / 2 ), GRAPH_POSITION_Y + 5, 105, array( 54, 102, 153 ) );
+chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) - ( GRAPH_MARGIN / 2 ), GRAPH_POSITION_Y + 5, 80, array( 54, 102, 153 ) );
 
 // Race chart
 pieChart( $pdf, "By Race", $raceText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $race, $colors, "top" );
 
 // Race divider
-chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) +  ($pageWidth / 3), GRAPH_POSITION_Y + 5, 105, array( 54, 102, 153 ) );
+chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 3 ) +  ($pageWidth / 3), GRAPH_POSITION_Y + 5, 80, array( 54, 102, 153 ) );
 
 // Age chart
 pieChart( $pdf, "By Age", $ageText, ($pageWidth / 3) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + ( ($pageWidth / 3) * 2) + GRAPH_MARGIN, GRAPH_POSITION_Y, 20, $age, $colors, "top" );
 
 // Ideology pie chart
-pieChart( $pdf, "By Ideology Score", $ideologyText, ($pageWidth / 2) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + GRAPH_MARGIN, GRAPH_POSITION_Y + 120, 20, $ideal, $colors, "right" );
+pieChart( $pdf, "By Ideology Score", $ideologyText, ($pageWidth / 2) - 2 * GRAPH_MARGIN, PDF_MARGIN_LEFT + GRAPH_MARGIN, GRAPH_POSITION_Y + 100, 20, $ideal, $colors, "right" );
 
 // Race divider
-chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 125, 60, array( 54, 102, 153 ) );
+chartDivider( $pdf, PDF_MARGIN_LEFT + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 105, 60, array( 54, 102, 153 ) );
 
 // Vote Propensity
-pieChart( $pdf, "By Vote Propensity", $propensityText, ( $pageWidth / 2 ) - ( 2 * GRAPH_MARGIN ), PDF_MARGIN_LEFT + ( GRAPH_MARGIN * 2 ) + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 120, 20, $propensity, $colors, "right" );
+pieChart( $pdf, "By Vote Propensity", $propensityText, ( $pageWidth / 2 ) - ( 2 * GRAPH_MARGIN ), PDF_MARGIN_LEFT + ( GRAPH_MARGIN * 2 ) + ( $pageWidth / 2 ), GRAPH_POSITION_Y + 100, 20, $propensity, $colors, "right" );
 
 // County
-barChart( $pdf, 'By County', $countyText, PDF_MARGIN_LEFT, 245, 10, 32.5, $county, 12, $colors, 5 );
+barChart( $pdf, 'By County', $countyText, PDF_MARGIN_LEFT, 230, 10, 40, $county, 12, $colors, 5 );
 
 /*
 	---------------------------------------------------------------------------
