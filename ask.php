@@ -23,7 +23,7 @@
 
 				<div>
 					<label for="desc">Description Text:</label>
-					<textarea rows="10" name="desc" id="desc" required></textarea>
+					<textarea rows="10" name="desc" id="desc" required maxlength="375"></textarea>
 				</div>
 
 				<div>
